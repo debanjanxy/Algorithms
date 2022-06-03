@@ -9,7 +9,7 @@ class UnionFind:
         for i in range(size):
             self.component_sizes.append(1)
             self.id.append(i)
-    
+
     # Find which component/set, p belongs to
     def find(self, p):
         # Find the root of the component
@@ -47,7 +47,8 @@ class UnionFind:
         root_q = self.find(q)
         # If both belong to the same component then return
         if root_p == root_q:
-            return
+            # If p and q are already in the same component then return -1
+            return -1
         # Merge the bigger component with the smaller one
         if self.component_size(p) >= self.component_size(q):
             self.component_sizes[root_p] += self.component_sizes[root_q]
@@ -57,6 +58,8 @@ class UnionFind:
             self.id[root_p] = root_q
         # By performing union once, the no. of components will decrease by 1
         self.num_components -= 1
+        # If both the nodes are united then return 0
+        return 0
 
 
 if __name__ == "__main__":
@@ -71,7 +74,7 @@ if __name__ == "__main__":
     print(uf.find(5))
     print(uf.find(0))
     print(uf.find(4))
-    
+
         
         
 
