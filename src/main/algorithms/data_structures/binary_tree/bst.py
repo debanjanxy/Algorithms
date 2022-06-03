@@ -3,6 +3,7 @@ class BST:
         self.size = size
         self.elems = [None] * size
 
+    # Insert a value into the BST
     def insert(self, val):
         curr = 0
         while curr < self.size:
@@ -17,6 +18,19 @@ class BST:
                print("Duplicate values are not allowed") 
                return -1
         print("BST is full")
+
+    # Find a value into the BST
+    def find(self, val):
+        curr = 0
+        while curr < self.size:
+            if self.elems[curr] == val:
+                return True
+            elif self.elems[curr] > val:
+                curr = 2 * curr + 1
+            else:
+                curr = 2 * curr + 2
+        return False
+
         
 
 if __name__ == "__main__":
@@ -29,3 +43,5 @@ if __name__ == "__main__":
     bst.insert(6)
     bst.insert(12)
     print(bst.elems)
+    print(bst.find(1))
+    print(bst.find(23))
