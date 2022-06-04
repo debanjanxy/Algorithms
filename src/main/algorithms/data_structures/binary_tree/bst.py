@@ -99,6 +99,8 @@ class BST:
             return self.inorder(self.root)
         elif order == 'level':
             return self.levelorder(self.root)
+        else:
+            return self.postorder(self.root)
 
     def preorder(self, node):
         stack = [node]
@@ -121,9 +123,19 @@ class BST:
                 yield curr.data
                 curr = curr.right
                 
-
     def postorder(self, node):
-        pass
+        stack = [node]
+        res = []
+        while stack:
+            curr = stack.pop()
+            if curr.left:
+                stack.append(curr.left)
+            if curr.right:
+                stack.append(curr.right)
+            res.append(curr.data)
+        while res:
+            yield res.pop()
+
 
     def levelorder(self, node):
         que = deque([node])
@@ -149,5 +161,5 @@ if __name__ == "__main__":
     bst.remove(8)
 
     # Traversals
-    traverse_res = bst.traverse('level')
+    traverse_res = bst.traverse('post')
     print([elem for elem in traverse_res])
