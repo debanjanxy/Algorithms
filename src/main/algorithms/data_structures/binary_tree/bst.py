@@ -41,24 +41,37 @@ class BST:
         return False
 
     def __remove(self, node, val):
+        # First check if the node is None
         if not node:
             return None
+        # If val is smaller then search in the left-subtree
         if node.data > val:
             node.left = self.__remove(node.left, val)
+        # If val is greater then search in the right-subtree
         elif node.data < val:
             node.right = self.__remove(node.right, val)
+        # We've found the node
         else:
+            # If the node doesn't have left child
+            # We can just replace current node with it's right child
             if not node.left:
                 right_child = node.right
                 node.data = node.right = None
                 return right_child
+            # If the node doesn't have right child
+            # We can just replace current node with it's left child
             elif not node.right:
                 left_child = node.left 
                 node.left = node.data = None
                 return left_child
+            # If we have both left and right children
             else:
+                # We can get the successor of the current node from right subtree
+                # Or from the left subtree
                 tmp = self.dig_left(node.right) 
+                # Replace current node's value with successor's value 
                 node.data = tmp.data
+                # Then just modify the right subtree by deleting the successor node
                 node.right = self.__remove(node.right, tmp.data)
         return node
 
@@ -143,8 +156,10 @@ class BST:
             curr = que.popleft()
             if curr:
                 yield curr.data
-                que.append(curr.left)
-                que.append(curr.right)
+                if curr.left:
+                    que.append(curr.left)
+                if curr.right:
+                    que.append(curr.right)
 
 
 
