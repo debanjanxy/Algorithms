@@ -121,8 +121,6 @@ class HashTableSeparateChaining:
             return entry.value
         
 
-    
-
 if __name__ =="__main__":
     ht = HashTableSeparateChaining()
     ht.add("deb", 11)
