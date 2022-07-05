@@ -65,16 +65,32 @@ def print_tree(root):
             que.append(curr.right)
     print(result)
 
+def is_continuous_tree(root):
+    stack = [root]
+    while stack:
+        curr = stack.pop()
+        if curr.left:
+            if abs(curr.data - curr.left.data) != 1:
+                return False
+            stack.append(curr.left)
+        if curr.right:
+            if abs(curr.data - curr.right.data) != 1:
+                return False
+            stack.append(curr.right)
+    return True
+
+
 if __name__ == "__main__":
     root = TreeNode(10)
     root.left = TreeNode(11)
-    root.left.left = TreeNode(7)
+    root.left.left = TreeNode(12)
     root.right = TreeNode(9)
-    root.right.left = TreeNode(15)
+    root.right.left = TreeNode(10)
     root.right.right = TreeNode(8)
     print_tree(root)
+    print(is_continuous_tree(root))
     root = insert_level_order(root, 12)
     print_tree(root)
     root = deletion(root, 10)
     print_tree(root)
-
+    print(is_continuous_tree(root))
