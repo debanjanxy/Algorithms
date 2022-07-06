@@ -86,7 +86,19 @@ def is_continuous_tree(root):
             stack.append(curr.right)
     return True
 
+def is_foldable(root):
+    if not root:
+        return True
+    return is_foldable_util(root.left, root.right)
 
+def is_foldable_util(n1, n2):
+    if not n1 and not n2:
+        return True
+    elif (not n1 and n2) or (n1 and not n2):
+        return False
+    else:
+        return is_foldable_util(n1.left, n2.right) and is_foldable_util(n1.right, n2.left)
+    
 
 if __name__ == "__main__":
     root = TreeNode(10)
