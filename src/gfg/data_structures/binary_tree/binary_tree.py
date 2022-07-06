@@ -51,7 +51,7 @@ def deletion(root, key):
         del curr
     return root
 
-def print_tree(root):
+def print_level_order(root):
     if not root:
         return
     que = deque([root])
@@ -64,6 +64,13 @@ def print_tree(root):
         if curr.right:
             que.append(curr.right)
     print(result)
+
+def print_inorder(root):
+    if not root:
+        return
+    print_inorder(root.left)
+    print(root.data, sep=" ")
+    print_inorder(root.right)
 
 def is_continuous_tree(root):
     stack = [root]
@@ -80,6 +87,7 @@ def is_continuous_tree(root):
     return True
 
 
+
 if __name__ == "__main__":
     root = TreeNode(10)
     root.left = TreeNode(11)
@@ -87,10 +95,10 @@ if __name__ == "__main__":
     root.right = TreeNode(9)
     root.right.left = TreeNode(10)
     root.right.right = TreeNode(8)
-    print_tree(root)
+    print_level_order(root)
     print(is_continuous_tree(root))
     root = insert_level_order(root, 12)
-    print_tree(root)
+    print_level_order(root)
     root = deletion(root, 10)
-    print_tree(root)
+    print_level_order(root)
     print(is_continuous_tree(root))

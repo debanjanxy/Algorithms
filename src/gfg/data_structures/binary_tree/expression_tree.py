@@ -1,5 +1,7 @@
 from curses.ascii import isalnum
-from binary_tree import TreeNode, print_tree
+
+from requests import post
+from binary_tree import TreeNode, print_level_order, print_inorder
 
 
 def eval_tree(root):
@@ -17,6 +19,25 @@ def is_operand(val):
 def calculate(a, b, op):
     return eval(f"{a} {op} {b}")
 
+def construct_tree(postfix):
+    stack = []
+    root = None
+    for ch in postfix:
+        # ch is an operand
+        if not is_operator(ch):
+            stack.append(TreeNode(ch + " "))
+        # ch is an operator
+        else:
+            root = TreeNode(ch + " ")
+            root.right, root.left = stack.pop(), stack.pop()
+            stack.append(root)
+    return stack.pop()
+
+def is_operator(c):
+    if (c == '+' or c == '-' or c == '*' or c == '/' or c == '^'):
+        return True
+    return False
+
 
 if __name__ == "__main__":
     root = TreeNode("+")
@@ -26,5 +47,7 @@ if __name__ == "__main__":
     root.right.right = TreeNode("2")
     root.right.left.left= TreeNode("5")
     root.right.left.right= TreeNode("9")
-    print_tree(root)
+    print_level_order(root)
     print(eval_tree(root))
+    postfix = "abc+*"
+    print_inorder(construct_tree(postfix))
