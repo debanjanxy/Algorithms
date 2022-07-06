@@ -24,6 +24,7 @@ def insert_level_order(root, key):
             que.append(curr.left)
             que.append(curr.right)
 
+
 def deletion(root, key):
     '''
     root: root of tree
@@ -51,6 +52,7 @@ def deletion(root, key):
         del curr
     return root
 
+
 def print_level_order(root):
     if not root:
         return
@@ -65,12 +67,14 @@ def print_level_order(root):
             que.append(curr.right)
     print(result)
 
+
 def print_inorder(root):
     if not root:
         return
     print_inorder(root.left)
     print(root.data, sep=" ")
     print_inorder(root.right)
+
 
 def is_continuous_tree(root):
     stack = [root]
@@ -86,10 +90,12 @@ def is_continuous_tree(root):
             stack.append(curr.right)
     return True
 
+
 def is_foldable(root):
     if not root:
         return True
     return is_foldable_util(root.left, root.right)
+
 
 def is_foldable_util(n1, n2):
     if not n1 and not n2:
@@ -99,10 +105,12 @@ def is_foldable_util(n1, n2):
     else:
         return is_foldable_util(n1.left, n2.right) and is_foldable_util(n1.right, n2.left)
     
+
 def is_symmetric(root):
     if not root:
         return True
     return is_symmetric_util(root.left, root.right)
+
 
 def is_symmetric_util(n1, n2):
     if not n1 and not n2:
@@ -111,6 +119,21 @@ def is_symmetric_util(n1, n2):
         return False
     else:
         return n1.data == n2.data and is_foldable_util(n1.left, n2.right) and is_foldable_util(n1.right, n2.left)
+
+
+def inorder_iterative(root):
+    result = []
+    curr = root
+    stack = []
+    while stack or curr:
+        while curr:
+            stack.append(curr)
+            curr = curr.left
+        curr = stack.pop()
+        result.append(curr.data)
+        curr = curr.right
+    return result
+
 
 if __name__ == "__main__":
     root = TreeNode(10)

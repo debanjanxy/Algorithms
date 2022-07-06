@@ -1,7 +1,7 @@
 from curses.ascii import isalnum
 
 from requests import post
-from binary_tree import TreeNode, print_level_order, print_inorder
+from binary_tree import TreeNode, print_level_order, print_inorder, inorder_iterative
 
 
 def eval_tree(root):
@@ -51,3 +51,4 @@ if __name__ == "__main__":
     print(eval_tree(root))
     postfix = "abc+*"
     print_inorder(construct_tree(postfix))
+    print(inorder_iterative(construct_tree(postfix)))
