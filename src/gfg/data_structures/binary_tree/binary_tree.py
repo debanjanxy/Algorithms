@@ -135,6 +135,25 @@ def inorder_iterative(root):
     return result
 
 
+def morris_traversal(root):
+    curr = root
+    while curr:
+        if not curr.left:
+            yield curr.data
+            curr = curr.right
+        else:
+            pre = curr.left
+            while pre.right and pre.right != curr:
+                pre = pre.right
+            if not pre.right:
+                pre.right = curr
+                curr = curr.left
+            else:
+                pre.right = None
+                yield curr.data
+                curr = curr.right
+
+
 if __name__ == "__main__":
     root = TreeNode(10)
     root.left = TreeNode(11)
@@ -149,3 +168,5 @@ if __name__ == "__main__":
     root = deletion(root, 10)
     print_level_order(root)
     print(is_continuous_tree(root))
+    print(inorder_iterative(root))
+    print([node for node in morris_traversal(root)])
