@@ -135,7 +135,7 @@ def inorder_iterative(root):
     return result
 
 
-def morris_traversal(root):
+def morris_inorder_traversal(root):
     curr = root
     while curr:
         if not curr.left:
@@ -169,4 +169,4 @@ if __name__ == "__main__":
     print_level_order(root)
     print(is_continuous_tree(root))
     print(inorder_iterative(root))
-    print([node for node in morris_traversal(root)])
+    print([node for node in morris_inorder_traversal(root)])
