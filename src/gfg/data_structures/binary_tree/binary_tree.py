@@ -1,4 +1,5 @@
 from collections import deque
+from os import preadv
 
 
 class TreeNode:
@@ -6,6 +7,7 @@ class TreeNode:
         self.data = data
         self.left = None
         self.right = None
+        self.next = None
 
 
 def insert_level_order(root, key):
@@ -184,7 +186,6 @@ def morris_preorder_traversal(root):
                 pre.right = curr
                 curr = curr.left
     return res
-                
 
 
 if __name__ == "__main__":
@@ -200,8 +201,11 @@ if __name__ == "__main__":
     print_level_order(root)
     root = deletion(root, 10)
     print_level_order(root)
+
     print(is_continuous_tree(root))
+
     print(inorder_iterative(root))
     print([node for node in morris_inorder_traversal(root)])
+
     print(preorder_iterative(root))
     print(morris_preorder_traversal(root))
