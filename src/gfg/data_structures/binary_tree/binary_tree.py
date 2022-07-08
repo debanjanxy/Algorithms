@@ -154,6 +154,39 @@ def morris_inorder_traversal(root):
                 curr = curr.right
 
 
+def preorder_iterative(root):
+    stack, res = [root], []
+    while stack:
+        curr = stack.pop()
+        res.append(curr.data)
+        if curr.right:
+            stack.append(curr.right)
+        if curr.left:
+            stack.append(curr.left)
+    return res
+
+
+def morris_preorder_traversal(root):
+    curr, res = root, []
+    while curr:
+        if not curr.left:
+            res.append(curr.data)
+            curr = curr.right
+        else:
+            pre = curr.left
+            while pre.right and pre.right != curr:
+                pre = pre.right
+            if pre.right == curr:
+                pre.right = None
+                curr = curr.right
+            else: 
+                res.append(curr.data)
+                pre.right = curr
+                curr = curr.left
+    return res
+                
+
+
 if __name__ == "__main__":
     root = TreeNode(10)
     root.left = TreeNode(11)
@@ -170,3 +203,5 @@ if __name__ == "__main__":
     print(is_continuous_tree(root))
     print(inorder_iterative(root))
     print([node for node in morris_inorder_traversal(root)])
+    print(preorder_iterative(root))
+    print(morris_preorder_traversal(root))
