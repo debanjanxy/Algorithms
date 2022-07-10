@@ -188,6 +188,66 @@ def morris_preorder_traversal(root):
     return res
 
 
+def spiral_level_order(root):
+    que = deque([root, None])
+    res, temp, i = [], [], 0
+    while que:
+        curr = que.popleft()
+        if curr:
+            temp.append(curr.data)
+            if curr.left:
+                que.append(curr.left)
+            if curr.right:
+                que.append(curr.right)
+        else:
+            if que:
+                que.append(None)
+            if i % 2 == 0:
+                temp.reverse()
+            res += temp
+            temp = []
+            i += 1
+    return res
+
+
+def print_boundary_view(root):
+    if root:
+        res = [root.data]
+        print_left_view(root.left, res)
+        print_leaves(root.left, res)
+        print_leaves(root.right, res)
+        print_right_view(root.right, res)
+        return res
+
+
+def print_left_view(root, res):
+    if root:
+        if root.left:
+            res.append(root.data)
+            print_left_view(root.left, res)
+        elif root.right:
+            res.append(root.data)
+            print_left_view(root.right, res)
+
+
+def print_right_view(root, res):
+    if root:
+        if root.right:
+            print_right_view(root.right, res)
+            res.append(root.data)
+        elif root.left:
+            print_right_view(root.left, res)
+            res.append(root.data)
+
+
+def print_leaves(root, res):
+    if root:
+        print_leaves(root.left, res)
+        if not root.left and not root.right:
+            res.append(root.data)
+        print_leaves(root.right, res)
+
+
 if __name__ == "__main__":
     root = TreeNode(10)
     root.left = TreeNode(11)
@@ -202,10 +262,13 @@ if __name__ == "__main__":
     root = deletion(root, 10)
     print_level_order(root)
 
-    print(is_continuous_tree(root))
+    # print(is_continuous_tree(root))
 
-    print(inorder_iterative(root))
-    print([node for node in morris_inorder_traversal(root)])
+    # print(inorder_iterative(root))
+    # print([node for node in morris_inorder_traversal(root)])
 
-    print(preorder_iterative(root))
-    print(morris_preorder_traversal(root))
+    # print(preorder_iterative(root))
+    # print(morris_preorder_traversal(root))
+
+    print(spiral_level_order(root))
+    print(print_boundary_view(root))
