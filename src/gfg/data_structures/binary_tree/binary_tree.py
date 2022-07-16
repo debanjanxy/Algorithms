@@ -1,4 +1,4 @@
-from collections import deque
+from collections import deque, defaultdict
 from os import preadv
 
 
@@ -248,6 +248,14 @@ def print_leaves(root, res):
         print_leaves(root.right, res)
 
 
+def level_order_recursive(root, level, res_map):
+    if not root:
+        return
+    res_map[level].append(root.data)
+    level_order_recursive(root.left, level + 1, res_map)
+    level_order_recursive(root.right, level + 1, res_map)
+
+
 if __name__ == "__main__":
     root = TreeNode(10)
     root.left = TreeNode(11)
@@ -272,3 +280,7 @@ if __name__ == "__main__":
 
     print(spiral_level_order(root))
     print(print_boundary_view(root))
+
+    res_map = defaultdict(list)
+    level_order_recursive(root, 0, res_map)
+    print(res_map)
