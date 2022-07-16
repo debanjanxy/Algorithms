@@ -256,6 +256,25 @@ def level_order_recursive(root, level, res_map):
     level_order_recursive(root.right, level + 1, res_map)
 
 
+def top_view(root):
+    if not root:
+        return []
+    table = {}
+    que = deque([(root, 0)])
+    while que:
+        curr_node, hdist = que.popleft()
+        if hdist not in table:
+            table[hdist] = curr_node.data
+        if curr_node.left:
+            que.append((curr_node.left, hdist - 1))
+        if curr_node.right:
+            que.append((curr_node.right, hdist + 1))
+    result = []
+    for hdist in sorted(table):
+        result.append(table[hdist])
+    return result
+
+
 if __name__ == "__main__":
     root = TreeNode(10)
     root.left = TreeNode(11)
