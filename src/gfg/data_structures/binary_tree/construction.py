@@ -9,6 +9,21 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
+class TernaryNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.middle = None
+        self.right = None
+
+
+class DLLNode:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None
+        self.next = None
+
 class Solution:
     def build_tree_in_pre(self, inorder: List[int], preorder: List[int]) -> Optional[TreeNode]:
         """
@@ -50,7 +65,6 @@ class Solution:
         root_node.right= self.construct_tree_maxheap_inorder_util(inorder, root_index + 1, end)
         return root_node
 
-
     def get_max_index(self, arr, start, end):
         curr_max = float("-inf") 
         max_index = None
@@ -60,6 +74,22 @@ class Solution:
                 curr_max = elem
                 max_index = i
         return max_index
+
+    def construct_tree_post_in(self, inorder, postorder):
+        self.n = len(postorder)
+        self.post_index = self.n - 1
+        self.ino_map = {elem : i for i, elem in enumerate(inorder)}
+        return self.construct_tree_post_in_util(inorder, postorder, 0, self.n - 1) 
+
+    def construct_tree_post_in_util(self, inorder, postorder, start, end):
+        if start > end or self.post_index < 0:
+            return None
+        root_data = 
+
+    def construct_dll_from_ternary_tree(root):
+        pass
+
+        
 
 
 if __name__ == "__main__":
