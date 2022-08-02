@@ -30,8 +30,8 @@ def print_lcs(s1: str, s2: str, n1: int, n2: int) -> str:
                 table[i][j] = max(table[i - 1][j], table[i][j - 1])
     result_list = []
     print_lcs_util(table, s1, s2, n1, n2, "", result_list)
-    result_list = set(result_list)
-    return list(result_list)
+    result_list = sorted(set(result_list))
+    return result_list
     # i, j = n1, n2
     # while i > 0 and j > 0:
     #     if s1[i - 1] == s2[j - 1]:
